@@ -1,0 +1,26 @@
+extends layout
+
+block layout-content
+  style
+    include ../public/Card.css
+  div.View.WelcomeView
+    p Current Environment 
+
+    table
+      tr
+        td 
+          span.Card
+            h4 Temperature
+            div.CardContainer
+              img.CardLogo(src="/images/cards/thermometer.png")
+              p.CardValue #{sensorData.temperature} &#176; C
+        td 
+          span.Card
+            h4 Humidity
+            div.CardContainer
+              img.CardLogo(src="/images/cards/humidity.png")
+              p.CardValue #{sensorData.humidity} %
+
+    //- div.NavButtons
+    //-   a(href="/temperature")
+    //-       div.NavButton Just dive in!
