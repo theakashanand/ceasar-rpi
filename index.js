@@ -1,18 +1,26 @@
 const express = require('express')
-const sensorModule = require('./sensors/datacollector')
+const sensorModule = require('./sensors/serialRead')
 const path  = require('path')
 var favicon = require('serve-favicon');
+var serialPort = require('serialport')
+
 
 const app = express()
-app.set('view engine', 'pug')
+// app.set('view engine', 'pug')
 app.use(express.static(path.join(__dirname, "public")));
+
+
 
 const port = 8000
 require('dotenv').config({ path: __dirname + '/.env' })
 
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Ceasar', message: 'Welcome to Ceasar', sensorData: sensorModule.getAllData() })
+    res.render('index', { title: 'Ceasar', message: 'Welcome to Ceasar',time:Date.now(), sensorData: {temperature:60} })
 })
+
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello from server!" });
+});
 
 app.get('/temperature', (req, res) => {
   res.send(`Temperature: ${sensorModule.getTemp()} degrees Celsius`)

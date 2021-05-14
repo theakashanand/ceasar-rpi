@@ -1,0 +1,42 @@
+.Card {
+    height:130px;
+    width:200px;    
+    white-space: nowrap;
+}
+table{
+    border-spacing:10px;
+}
+
+td{
+    padding:10px;
+    background: white;
+    border-radius:10px;
+    border-bottom: var(--ui-shadow-border);
+    box-shadow: var(--ui-shadow);
+}
+
+td:hover{
+    background-color: rgb(194, 194, 194);
+    cursor:pointer;
+}
+
+.CardContainer{
+    margin:0px;
+    padding:0px;
+    display: flex;
+    align-items: center;
+}
+  
+.CardLogo {
+      height:48px;
+      width:48px;
+}
+
+.CardValue {
+    margin-left:10px;
+    display:inline;
+    font-size:28px;
+    color:grey;
+
+}
+  

@@ -5,6 +5,9 @@ block layout-content
     include ../public/Card.css
   div.View.WelcomeView
     p Current Environment 
+    p Time: #{time}
+    -
+    var obj = {"temp":31, "moist":41}
 
     table
       tr
@@ -20,6 +23,12 @@ block layout-content
             div.CardContainer
               img.CardLogo(src="/images/cards/humidity.png")
               p.CardValue #{sensorData.humidity} %
+        td 
+          span.Card
+            h4 Humidity
+            div.CardContainer
+              img.CardLogo(src="/images/cards/soil.png")
+              p.CardValue #{obj.moist} %
 
     //- div.NavButtons
     //-   a(href="/temperature")
