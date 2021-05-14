@@ -21,12 +21,14 @@
   "dependencies": {
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
-    "node-dht-sensor": "^0.4.3",
     "nodemon": "^2.0.7",
     "pg": "^8.6.0",
     "pug": "^3.0.2",
     "serialport": "^9.0.7",
-    "serve-favicon": "^2.5.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
   },
   "devDependencies": {
     "browser-sync": "^2.26.14"

@@ -53,3 +53,10 @@ function onError(){
     console.log("something went wrong in serial communication")
 }
 
+sensorModule = {
+    getLatestData:()=>{
+        return sensorData;
+    }
+}
+
+module.exports = sensorModule

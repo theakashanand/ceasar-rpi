@@ -1,8 +1,6 @@
 const express = require('express')
 const sensorModule = require('./sensors/serialRead')
 const path  = require('path')
-var favicon = require('serve-favicon');
-var serialPort = require('serialport')
 
 
 const app = express()
@@ -21,6 +19,12 @@ app.get('/', (req, res) => {
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
+
+app.get("/latest-data", (req, res) =>{
+  
+  res.json({sensorData: sensorModule.getLatestData()});
+
+})
 
 app.get('/temperature', (req, res) => {
   res.send(`Temperature: ${sensorModule.getTemp()} degrees Celsius`)
