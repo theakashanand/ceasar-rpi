@@ -46,6 +46,14 @@ export class Home extends Component {
         ));   
     }
 
+    getField = (string) =>{
+        fetch("/p/Akash")
+              .then((res) => res.json())
+              .then((data)=>{
+                  console.log("Field data: ", data)
+              });  
+    }
+
     getPlotData = (field = null) =>{
         const options = {
             animationEnabled: true,	
@@ -115,6 +123,7 @@ export class Home extends Component {
         const {sensorData} = this.state
         return (
             <div className="View WelcomeView">
+                <button onClick={this.getTagId}>Get Data</button>
                 <button onClick={this.getLatestData}>Refresh</button>
                 <p>Current Environment</p>
                 <p>Time: {`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`}</p>

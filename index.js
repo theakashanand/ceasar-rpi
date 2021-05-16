@@ -20,11 +20,15 @@ app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.get("/latest-data", (req, res) =>{
-  
+app.get("/latest-data", (req, res) =>{ 
   res.json({sensorData: sensorModule.getLatestData()});
-
 })
+
+app.get('/p/:field', function(req, res) {
+  // res.send("field is set to " + req.params.field);
+  res.json({field: req.params.field});
+});
+
 
 app.get('/temperature', (req, res) => {
   res.send(`Temperature: ${sensorModule.getTemp()} degrees Celsius`)
