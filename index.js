@@ -1,6 +1,7 @@
 const express = require('express')
 const sensorModule = require('./sensors/serialRead')
 const path  = require('path')
+var db = require('./config/database');
 
 
 const app = express()
@@ -24,19 +25,22 @@ app.get("/latest-data", (req, res) =>{
   res.json({sensorData: sensorModule.getLatestData()});
 })
 
-app.get('/p/:field', function(req, res) {
+app.get('/alltime-data/:field', function(req, res) {
+  console.log("alltime data request")
   // res.send("field is set to " + req.params.field);
-  res.json({field: req.params.field});
+  // res.json({field: req.params.field});
+  let field = req.params.field
+  console.log("field: ", field)
+  db.query(`SELECT ${field} AS y, timestamp AS label FROM measurements; `, (error, results)=>{
+    if(error) {
+        console.log(error);
+    }
+    else{
+        res.json(results.rows)
+    }
+  })
 });
 
-
-app.get('/temperature', (req, res) => {
-  res.send(`Temperature: ${sensorModule.getTemp()} degrees Celsius`)
-})
-
-app.get('/humidity', (req, res) => {
-  res.send(`Humidity: ${sensorModule.getHumidity()} %`)
-})
 
 app.listen(port, () => {
   console.log(`Habitat is up and running at http://localhost:${port}`)

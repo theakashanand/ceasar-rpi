@@ -56,7 +56,19 @@ function onError(){
 sensorModule = {
     getLatestData:()=>{
         return sensorData;
-    }
+    }, 
+    getAllTimeData: (field)=>{
+        console.log("field: ", field)
+        db.query("SELECT $1, timestamp FROM measurements; ",[field], (error, results)=>{
+            if(error) {
+                console.log(error);
+            }
+            else{
+                return results.rows
+            }
+        })
+
+    },
 }
 
 module.exports = sensorModule

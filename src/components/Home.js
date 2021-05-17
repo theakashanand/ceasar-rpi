@@ -20,7 +20,7 @@ export class Home extends Component {
                 humidity:0,
                 temperature:0,
                 moisture:0,
-                co2: 0,
+                co2:0,
             },
             plotField:"temperature",
             plotData:null,
@@ -30,14 +30,14 @@ export class Home extends Component {
             temperature:" C",
             moisture: "%",
             humidity: "%",
-            co2:"ppm"
+            co2: "ppm"
         }
 
         this.logos = {
             temperature:temperature_img,
             moisture: moisture_img,
             humidity: humidity_img,
-            co2:co2_img,
+            co2: co2_img
         }
     }
 
@@ -51,29 +51,22 @@ export class Home extends Component {
         ));   
     }
 
-    showAllTimeDataPlot = (field = "temperature") =>{
-        fetch(`/alltime-data/${field}`)
+    getField = (string) =>{
+        fetch("/p/Akash")
               .then((res) => res.json())
               .then((data)=>{
-                console.log("Data: ", data)
-                // for (var i =0; i<data.length; i++){
-                //     data[i] = {y: data[i].y, label: data[i].label}
-                // }
-                var plotData = this.getPlotData(field, data)
-                this.setState({
-                    plotData: plotData
-                })
+                  console.log("Field data: ", data)
               });  
     }
 
-    getPlotData = (field = "temperature", dataPoints) =>{
+    getPlotData = (field = null) =>{
         const options = {
             animationEnabled: true,	
             title:{
-                text: field
+                text: "Number of New Customers"
             },
             axisY : {
-                title: this.units[field]
+                title: "Number of Customers"
             },
             toolTip: {
                 shared: true
@@ -82,12 +75,52 @@ export class Home extends Component {
                 type: "spline",
                 name: "2016",
                 showInLegend: true,
-                dataPoints: dataPoints
+                dataPoints: [
+                    { y: 155, label: "Jan" },
+                    { y: 150, label: "Feb" },
+                    { y: 152, label: "Mar" },
+                    { y: 148, label: "Apr" },
+                    { y: 142, label: "May" },
+                    { y: 150, label: "Jun" },
+                    { y: 146, label: "Jul" },
+                    { y: 149, label: "Aug" },
+                    { y: 153, label: "Sept" },
+                    { y: 158, label: "Oct" },
+                    { y: 154, label: "Nov" },
+                    { y: 150, label: "Dec" }
+                ]
+            },
+            {
+                type: "spline",
+                name: "2017",
+                showInLegend: true,
+                dataPoints: [
+                    { y: 172, label: "Jan" },
+                    { y: 173, label: "Feb" },
+                    { y: 175, label: "Mar" },
+                    { y: 172, label: "Apr" },
+                    { y: 162, label: "May" },
+                    { y: 165, label: "Jun" },
+                    { y: 172, label: "Jul" },
+                    { y: 168, label: "Aug" },
+                    { y: 175, label: "Sept" },
+                    { y: 170, label: "Oct" },
+                    { y: 165, label: "Nov" },
+                    { y: 169, label: "Dec" }
+                ]
             }]
     }
 
         return options
       
+    }
+
+    showPlot = (field = null) =>{
+        var plotData = this.getPlotData()
+        this.setState({
+            plotData: plotData
+        })
+
     }
 
     componentDidMount(){
@@ -99,14 +132,14 @@ export class Home extends Component {
         const {sensorData} = this.state
         return (
             <div className="View WelcomeView">
-                {/* <button onClick={this.getAllTimeData}>Get Data</button> */}
+                <button onClick={this.getTagId}>Get Data</button>
                 <button onClick={this.getLatestData}>Refresh</button>
                 <p>Current Environment</p>
                 <p>Time: {`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`}</p>
                 <table>
                     <tr>
                         {Object.keys(sensorData).map((field)=>
-                        <td key={field} name={field} onClick = {()=>{this.showAllTimeDataPlot(field)}}>
+                        <td key={field} name={field} onClick = {()=>{this.showPlot()}}>
                             <Card  field={field} value={sensorData[field]} unit={this.units[field]} img_src = {this.logos[field]}></Card>
                         </td>
                     )}
