@@ -70,7 +70,8 @@ export class Home extends Component {
         const options = {
             animationEnabled: true,	
             title:{
-                text: field
+                text: field.charAt(0).toUpperCase() + field.slice(1)
+
             },
             axisY : {
                 title: this.units[field]
@@ -80,7 +81,6 @@ export class Home extends Component {
             },
             data: [{
                 type: "spline",
-                name: "2016",
                 showInLegend: true,
                 dataPoints: dataPoints
             }]
@@ -100,9 +100,8 @@ export class Home extends Component {
         return (
             <div className="View WelcomeView">
                 {/* <button onClick={this.getAllTimeData}>Get Data</button> */}
-                <button onClick={this.getLatestData}>Refresh</button>
-                <p>Current Environment</p>
-                <p>Time: {`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`}</p>
+                <h3>Current Environment</h3>
+                <h4>Last refreshed at: {`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`}</h4>
                 <table>
                     <tr>
                         {Object.keys(sensorData).map((field)=>
@@ -113,6 +112,9 @@ export class Home extends Component {
 
                     </tr>
                 </table>
+                <br/>
+                <button onClick={this.getLatestData}>Refresh</button>
+                <br/>
                 {this.state.plotData?
                 <CanvasJSChart options = {this.state.plotData} 
                     /* onRef={ref => this.chart = ref} */

@@ -27,25 +27,31 @@ var sensorData = {}
 
 function onData(data){
     let flag = 0
+    let temperature, humidity, moisture, co2
     try{
         flag = 1
         let serialData = JSON.parse(data)
         sensorData = serialData
         console.log(serialData.humidity,serialData.temperature, serialData.moisture)
+        temperature = serialData.temperature
+        humidity = serialData.humidity
+        moisture = serialData.moisture
+        co2 = serialData.co2
+
     }
     catch{
         console.log("waiting: ", data)
     }
 
     if (flag){
-        // db.query("INSERT INTO measurements (temperature,humidity) VALUES ($1, $2);", [temperature, humidity], (err, res)=>{
-        //     if(err){
-        //         console.log("error writing to db: ", err)
-        //     }
-        //     else{
-        //         console.log("success writing to db: ", res)
-        //     }
-        // })
+        db.query("INSERT INTO sensordata (temperature,humidity, moisture, co2) VALUES ($1, $2, $3, $4);", [temperature, humidity, moisture, co2], (err, res)=>{
+            if(err){
+                console.log("error writing to db: ", err)
+            }
+            else{
+                console.log("success writing to db: ", res)
+            }
+        })
     }
 }
 
